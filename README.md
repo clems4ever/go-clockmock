@@ -17,7 +17,7 @@ Import smartclock into your project
 go get github.com/clems4ever/go-smartclock
 ```
 
-Wherever you need a clock, you should use the smartclock.Clock interface. That way, the
+Wherever you need a clock, you should use the `smartclock.Clock` interface. That way, the
 framework is able to smartly injects the smart mocked clock and allow you to drive it
 from your tests.
 
