@@ -17,22 +17,26 @@ from your tests.
 
 Then you can inject a real clock in production code like so
 
-    SetupTimerIn(&smartclock.RealClock{}, 20 * time.Minute, doSomething)
+```go
+SetupTimerIn(&smartclock.RealClock{}, 20 * time.Minute, doSomething)
+```
 
 And in your tests, just use a mock. Obviously, the test will execute instaneously and have the
 expected behavior when it comes to the timers being triggered.
 
-    clockMock := smartclock.Mock(t, time.Date(2023, 4, 15, 11, 45, 0, 0, time.UTC))
+```go
+clockMock := smartclock.Mock(t, time.Date(2023, 4, 15, 11, 45, 0, 0, time.UTC))
 
-    SetupTimerIn(clockMock, 10 * time.Minute, doSomething)
-    
-    # Move the clock forward 30 minutes, meaning that it will call doSomething after 10 minutes
-    # and keep moving forward until it reaches the target date.
-    # If clock.Now() is called in doSomething, it will return 2023-04-15 11:55:00.
-    clockMock.MoveForward(30 * time.Minutes)
+SetupTimerIn(clockMock, 10 * time.Minute, doSomething)
 
-    # However, at this stage, i.e., after the clock has been moved forward,
-    # clockMock.Now() returns 2023-04-15 12:15:00 
+// Move the clock forward 30 minutes, meaning that it will call doSomething after 10 minutes
+// and keep moving forward until it reaches the target date.
+// If clock.Now() is called in doSomething, it will return 2023-04-15 11:55:00.
+clockMock.MoveForward(30 * time.Minutes)
+
+// However, at this stage, i.e., after the clock has been moved forward,
+// clockMock.Now() returns 2023-04-15 12:15:00 
+```
 
 For a concrete example, check the [examples/](./examples/) directory.
 
